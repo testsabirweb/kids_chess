@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Chess for Toddlers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>♟️ Chess Moves</h1>
+            <p class="hint" id="hint">Tap a piece to see how it moves!</p>
+        </header>
+
+        <!-- Piece Picker -->
+        <section class="piece-picker" role="group" aria-label="Choose a chess piece">
+            <button class="piece-btn" data-piece="rook" aria-label="Rook">
+                <span class="piece-icon">♖</span>
+                <span class="piece-label">Rook</span>
+            </button>
+            <button class="piece-btn" data-piece="bishop" aria-label="Bishop">
+                <span class="piece-icon">♗</span>
+                <span class="piece-label">Bishop</span>
+            </button>
+            <button class="piece-btn" data-piece="queen" aria-label="Queen">
+                <span class="piece-icon">♕</span>
+                <span class="piece-label">Queen</span>
+            </button>
+            <button class="piece-btn" data-piece="king" aria-label="King">
+                <span class="piece-icon">♔</span>
+                <span class="piece-label">King</span>
+            </button>
+            <button class="piece-btn" data-piece="knight" aria-label="Knight">
+                <span class="piece-icon">♘</span>
+                <span class="piece-label">Knight</span>
+            </button>
+            <button class="piece-btn" data-piece="pawn" aria-label="Pawn">
+                <span class="piece-icon">♙</span>
+                <span class="piece-label">Pawn</span>
+            </button>
+        </section>
+
+        <!-- Controls -->
+        <section class="controls">
+            <button id="play-btn" class="control-btn" disabled aria-label="Play: Find the star">
+                ▶ Play: Find the ⭐
+            </button>
+            <button id="show-moves-btn" class="control-btn" disabled aria-label="Show or hide legal moves">
+                💡 Show Moves
+            </button>
+            <button id="sound-btn" class="control-btn" aria-label="Toggle sound">
+                🔊 Sound: On
+            </button>
+            <button id="reset-btn" class="control-btn" aria-label="Reset game">
+                ↻ Reset
+            </button>
+        </section>
+
+        <!-- Board Container -->
+        <div class="board-wrapper">
+            <div class="board" role="grid" aria-label="Chess board" id="board"></div>
+        </div>
+
+        <!-- Stickers Row -->
+        <section class="stickers-section">
+            <div class="stickers-row" id="stickers-row" aria-label="Reward stickers"></div>
+        </section>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <h2 id="modal-title">Great job! 🎉</h2>
+            <p>You found 3 stars!</p>
+            <button id="play-again-btn" class="control-btn">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
