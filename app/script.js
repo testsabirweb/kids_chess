@@ -265,19 +265,31 @@ function vibrate(pattern) {
     }
 }
 
-// Confetti Effect
+// Confetti Effect with variety
 function createConfetti(x, y) {
     const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#a29bfe'];
-    const count = 30;
+    const rainbowColors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
+    const shapes = ['circle', 'square', 'star'];
+    const count = 35;
+    
+    // Occasionally use rainbow effect (20% chance)
+    const useRainbow = Math.random() < 0.2;
+    const colorPalette = useRainbow ? rainbowColors : colors;
     
     for (let i = 0; i < count; i++) {
         const confetti = document.createElement('div');
-        confetti.className = 'confetti';
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        confetti.className = `confetti ${shape}`;
         confetti.style.left = x + 'px';
         confetti.style.top = y + 'px';
-        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.position = 'fixed'; // Use fixed positioning to avoid board interference
+        confetti.style.background = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        confetti.style.borderColor = useRainbow ? colorPalette[Math.floor(Math.random() * colorPalette.length)] : 'transparent';
+        confetti.style.position = 'fixed';
         confetti.style.pointerEvents = 'none';
+        
+        // Add rotation for visual interest
+        const rotation = Math.random() * 360;
+        confetti.style.transform = `rotate(${rotation}deg)`;
         
         document.body.appendChild(confetti);
         
@@ -290,16 +302,21 @@ function createConfetti(x, y) {
         let py = y;
         let frame = 0;
         const maxFrames = 60;
+        const rotationSpeed = (Math.random() - 0.5) * 10; // Random rotation speed
         
         function animate() {
             frame++;
             px += vx * 0.1;
             py += vy * 0.1 + frame * 0.5; // Gravity
-            vy += 0.5; // Now this works since vy is let, not const
+            vy += 0.5;
+            
+            // Add rotation during animation
+            const currentRotation = rotation + frame * rotationSpeed;
             
             confetti.style.left = px + 'px';
             confetti.style.top = py + 'px';
             confetti.style.opacity = Math.max(0, 1 - (frame / maxFrames));
+            confetti.style.transform = `rotate(${currentRotation}deg)`;
             
             if (frame < maxFrames) {
                 requestAnimationFrame(animate);
@@ -312,6 +329,11 @@ function createConfetti(x, y) {
         }
         
         requestAnimationFrame(animate);
+    }
+    
+    // If rainbow effect, add extra sparkle
+    if (useRainbow) {
+        setTimeout(() => createConfetti(x, y), 100); // Second burst for rainbow
     }
 }
 
@@ -326,8 +348,8 @@ function addSticker() {
     sticker.setAttribute('aria-label', 'Reward sticker');
     stickersRow.appendChild(sticker);
     
-    // Check for 3 stickers
-    if (state.stickers.length >= 3) {
+    // Check for 5 stickers
+    if (state.stickers.length >= 5) {
         setTimeout(() => {
             modalOverlay.classList.add('show');
             modalOverlay.setAttribute('aria-hidden', 'false');
@@ -554,7 +576,7 @@ playAgainBtn.addEventListener('click', () => {
     state.starIndex = null;
     updateMoveHighlights();
     playBtn.disabled = false;
-    hint.textContent = 'Great! Find 3 more stars!';
+    hint.textContent = 'Great! Find 5 more stars!';
 });
 
 // Initialize
