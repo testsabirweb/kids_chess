@@ -13,7 +13,7 @@ A simple, offline-capable web app that teaches basic chess piece movement to you
 
 ## 🚀 Live Demo
 
-Visit the live site: [Your GitHub Pages URL]
+Visit the live site: [https://testsabirweb.github.io/kids_chess/]
 
 ## 📱 How to Use
 
